@@ -1,0 +1,23 @@
+{
+  "name": "learn-typescript",
+  "version": "1.0.0",
+  "description": "typescript",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "typescript": "^3.2.4"
+  },
+  "dependencies": {
+    "@types/jquery": "^3.3.29",
+    "@types/lodash": "^4.14.123",
+    "@types/ramda": "^0.26.3",
+    "loadsh": "0.0.4",
+    "log4js": "^4.0.2",
+    "ramda": "^0.26.1"
+  },
+  "keywords": []
+}
