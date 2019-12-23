@@ -37,4 +37,28 @@ f(); // 默认值不设置为{}，则此行报错
 f({})
 f({b: 1});
 
-var {c, d='d'} = {c: 1};
+var {d='d', e} = {e: 1};
+console.log(d, e);
+
+// 展开
+let defaults = { food: "spicy", price: "$$", ambiance: "noisy" };
+let search = { ...defaults, food: "rich" };
+console.log(search.food);
+
+class Cls {
+    p = 12;
+    f() {
+
+    }
+}
+
+const cls: Object = new Cls();
+
+for(let key in cls) {
+    console.log(key);
+}
+
+console.log(Object.getOwnPropertyNames(cls));
+console.log(Object.getPrototypeOf(cls));
+console.log(cls.hasOwnProperty('f'), cls.hasOwnProperty('p'), Object.getPrototypeOf(cls).hasOwnProperty('f'));
+console.log(Object.keys(cls));
