@@ -1,4 +1,15 @@
+// 函数接口，{ (x: number): number; }称为对象字面量
+// MyFn类型
+interface MyFn { (x: number): number; }
+
+const myFn: MyFn = function(x: number) : number {
+    return x * x;
+}
+
+
+
 interface ClockConstructor {
+    // 构造函数类型
     new (hour: number, minute: number): ClockInterface;
 }
 
