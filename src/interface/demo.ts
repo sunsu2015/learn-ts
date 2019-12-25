@@ -58,13 +58,15 @@ interface BaseInterface extends Base {
     select(): string;
 }
 
-class FailClass implements BaseInterface {
-    public state: any;
-    private status: any;
-    select() {
-        return 'select';
-    }
-}
+// 类“FailClass”错误实现接口“BaseInterface”。
+// 类型具有私有属性“status”的单独声明。
+// class FailClass implements BaseInterface {
+//     public state: any;
+//     private status: any;
+//     select() {
+//         return 'select';
+//     }
+// }
 
 class SuccessClass extends Base implements BaseInterface {
     public state: any;
