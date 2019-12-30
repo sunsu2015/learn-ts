@@ -85,3 +85,5 @@ class SuccessClass extends Base implements BaseInterface {
         return 'select';
     }
 }
+
+export {DigitalClock, AnalogClock};
