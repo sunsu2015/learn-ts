@@ -4,14 +4,19 @@ function extend<T, U>(first: T, second: U): T & U {
     for (let id in first) {
         (<any>result)[id] = (<any>first)[id];
     }
-    console.log('====', (<any>second).log);
-    for (let id in second) {
-        console.log('====', id);
-        // if (!result.hasOwnProperty(id)) {
+    /** 官网例子错误 */
+    // for (let id in second) {
+    //     console.log('====', id);
+    //     // if (!result.hasOwnProperty(id)) {
             
-        // }
+    //     // }
+    // }
+    const keys = Object.getOwnPropertyNames(second);
+    console.log(keys);
+    for(let i=0;i<keys.length;i++) {
+        console.log('second.log', second[keys[i]])
+        result[keys[i]] = second[keys[i]]
     }
-    (<any>result)['log'] = (<any>second).log;
     return result;
 }
 
@@ -27,9 +32,12 @@ class ConsoleLogger implements Loggable {
         console.log('log');
     }
 }
-var jim = extend(new Person("Jim"), new ConsoleLogger());
-var n = jim.name;
-jim.log();
+const consoleLogger = new ConsoleLogger();
+Object.defineProperties(consoleLogger, {log: {enumerable: true}});
+console.log(consoleLogger.log());
+// var jim = extend(new Person("Jim"), consoleLogger);
+// var n = jim.name;
+// jim.log();
 
 
 // 联合类型
@@ -93,9 +101,10 @@ s = null;
 // 使用类型断言手动去除null或 undefined
 function broken(name: string | null): string {
     function postfix(epithet: string) {
-      return name!.charAt(0) + '.  the ' + epithet; // error, 'name' is possibly null
+        //   return name.charAt(0) + '.  the ' + epithet; // error, 'name' is possibly null
+        return name!.charAt(0) + '.  the ' + epithet;
     }
-    name = name;
+    name = name || 'Bob';
     return postfix("great");
 }
 
