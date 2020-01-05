@@ -47,7 +47,6 @@ function getProperty<T, K extends keyof T> (obj: T, key: K) {
 }
 
 let obj = { a: 1, b: 2, c: 3, d: 4 };
-
 getProperty(obj, "a");
 // 'm'不在obj的key中，报错
 // getProperty(obj, "m");

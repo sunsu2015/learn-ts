@@ -33,25 +33,29 @@ console.log('##Class1.prototype.__proto__ === class1Obj.__proto__.__proto__##', 
 // 构造函数的原型的 构造函数的原型 的原型指针
 console.log('##Class1.prototype.__proto__.__proto__##', Class1.prototype.__proto__.__proto__);
 // 原型链就是原型指针形成的链表，一直到为null时结束
+
 console.log('----------------------------------');
 /**
  * 2、Object.create(prototype)
  * */ 
 const myPrototype = {
-    prop: 1,
-    get() {
-        return this.prop;
-    },
-    set(val) {
-        this.prop = val;
-    }
+    prop: 1
 }
 const myObj = Object.create(myPrototype);
 // myObj的原型是myPrototype
-console.log(Object.getPrototypeOf(myObj) === myPrototype);
-
-myObj.set(2);
-console.log(myObj.prop);
+console.log('##Object.getPrototypeOf(myObj) === myPrototype##', Object.getPrototypeOf(myObj) === myPrototype);
+console.log('##myObj.__proto__ === myPrototype##', myObj.__proto__ === myPrototype);
+console.log('myPrototype.isPrototypeOf(myObj)', myPrototype.isPrototypeOf(myObj));
+console.log('myObj.prop 当前值为 ', myObj.prop);
+console.log('此时取的prop是原型中的prop ');
+console.log('Object.getOwnPropertyNames(myObj) ', Object.getOwnPropertyNames(myObj));
+console.log('Object.getOwnPropertyNames(myPrototype) ', Object.getOwnPropertyNames(myPrototype));
+console.log('Object.getOwnPropertyDescriptors(myPrototype) ', Object.getOwnPropertyDescriptors(myPrototype));
+console.log('myObj.prop = 2'), myObj.prop = 2;
+console.log('此时设置的是myObj的prop ');
+console.log('Object.getOwnPropertyNames(myObj) ', Object.getOwnPropertyNames(myObj));
+console.log('Object.entries(myObj) ', Object.entries(myObj)); // [['prop', 2]]
+console.log(`Object.defineProperty(myObj, 'prop', ...) `, Object.entries(myObj));
 Object.defineProperty(myObj, 'prop', {
     get: () => {
         console.log('prop get invoke');
@@ -62,35 +66,28 @@ Object.defineProperty(myObj, 'prop', {
         this.value = val;
     }
 });
+console.log('myObj.prop = 3'), myObj.prop = 3;
+console.log('myObj.prop值为 ', myObj.prop);
 
-console.log(myObj.prop);
-myObj.set(3);
-console.log(myObj.prop);
-console.log(Object.getPrototypeOf(myObj).prop);
-console.log(myObj.__proto__.prop);
-console.log(myPrototype.isPrototypeOf(myObj))
-
-
-
-
-
+// const entries = new Map([
+//     ['foo', 'bar'],
+//     ['baz', 42]
+// ]);
+// console.log('Object.fromEntries(entries)', Object.fromEntries(entries));
+console.log('----------------------------------');
 /**
  * 3、ES6 class
  * */ 
-var __obj= {};
-console.log(__obj.constructor);
-console.log(Object.getPrototypeOf(__obj).constructor === __obj.constructor);
-
 
 class T {
-    private _prop: string;
+    private value: string;
     get prop() {
         console.log('getter');
-        return this._prop;
+        return this.value;
     }
     set prop(val: string) {
         console.log('setter');
-        this._prop = val;
+        this.value = val;
     }
     constructor() {
 
@@ -102,10 +99,13 @@ class T {
 
 const t = new T();
 
-console.log(T.prototype === Object.getPrototypeOf(t));
-console.log(T.prototype.isPrototypeOf(t));
-
-
-
-
-console.log(T.prototype.constructor === T);
+console.log('##T.prototype === Object.getPrototypeOf(t)##', T.prototype === Object.getPrototypeOf(t));
+console.log('##T.prototype.isPrototypeOf(t)##', T.prototype.isPrototypeOf(t));
+console.log('##T.prototype.constructor === T##', T.prototype.constructor === T);
+console.log('##Object.getOwnPropertyNames(T.prototype)##', Object.getOwnPropertyNames(T.prototype));
+console.log('##Object.getOwnPropertyNames(t)##', Object.getOwnPropertyNames(t));
+console.log('t.prop = ', t.prop = '1');
+console.log('##Object.getOwnPropertyNames(T.prototype)##', Object.getOwnPropertyNames(T.prototype));
+console.log('##Object.getOwnPropertyNames(t)##', Object.getOwnPropertyNames(t));
+console.log('t.value = ', t.value);
+console.log('T.prototype.prop = ', T.prototype.prop);

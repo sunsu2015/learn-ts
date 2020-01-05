@@ -5,18 +5,13 @@ function extend<T, U>(first: T, second: U): T & U {
         (<any>result)[id] = (<any>first)[id];
     }
     /** 官网例子错误 */
-    // for (let id in second) {
-    //     console.log('====', id);
-    //     // if (!result.hasOwnProperty(id)) {
-            
-    //     // }
-    // }
-    const keys = Object.getOwnPropertyNames(second);
-    console.log(keys);
-    for(let i=0;i<keys.length;i++) {
-        console.log('second.log', second[keys[i]])
-        result[keys[i]] = second[keys[i]]
+    for (let id in second) {
+        console.log('====', id);
+        if (!Object.prototype.hasOwnProperty.call(result, id)) {
+            (<any>result)[id] = (<any>second)[id];
+        }
     }
+    
     return result;
 }
 
@@ -33,11 +28,11 @@ class ConsoleLogger implements Loggable {
     }
 }
 const consoleLogger = new ConsoleLogger();
-Object.defineProperties(consoleLogger, {log: {enumerable: true}});
-console.log(consoleLogger.log());
-// var jim = extend(new Person("Jim"), consoleLogger);
-// var n = jim.name;
-// jim.log();
+Object.defineProperties(consoleLogger, {log: {enumerable: true, value: ConsoleLogger.prototype.log});
+consoleLogger.log();
+var jim = extend(new Person("Jim"), consoleLogger);
+var n = jim.name;
+console.log('jim.log()'), jim.log();
 
 
 // 联合类型
@@ -90,7 +85,7 @@ if(isFish(pet)) {
     pet.fly();
 }
 
-// 可为null的类型, strictNullChecks设置为true，可以避免null的复制问题
+// 可为null的类型, strictNullChecks设置为true，可以避免null的赋值问题
 // let s = 'foo';
 // s = null;   // 不能将类型“null”分配给类型“string”。ts(2322)
 
@@ -109,3 +104,75 @@ function broken(name: string | null): string {
 }
 
 console.log(broken(null));
+
+// 类型别名
+type MyFunc = () => string;
+// 泛型
+type Tree<T> = {
+    value: T;
+    left: Tree<T>;
+    right: Tree<T>;
+}
+
+type LinkedList<T> = T & { next: LinkedList<T> };
+
+interface Person {
+    name: string;
+}
+
+var people: LinkedList<Person>;
+
+// 字符串字面量类型
+type Easing = 'ease-in' | 'ease-out' | 'ease-in-out';
+let esaing: Easing = 'ease-in';
+// easing = '';
+
+// 数字字面量类型
+type MyNum = 1 | 2 | 3 | 4 | 5;
+let myNum: MyNum = 1;
+// myNum = 6;
+
+// 索引类型
+function pluck<T, K extends keyof T>(o: T, names: K[]): T[K][] {
+    return names.map(n => o[n]);
+  }
+  
+  interface Person {
+      name: string;
+      age: number;
+  }
+  type Person1<T, K extends keyof T> = {
+      [P in K]: T[P]
+  }
+  let person: Person1<{name: string, age: number}, keyof {name: string, age: number}> = {
+      name: 'Jarid',
+      age: 35
+  };
+let pluckRes: (Person[keyof Person]) [] = pluck(person, ['name', 'age']); // ok, string[]
+console.log(pluckRes);
+
+type Key = keyof Person;
+
+interface MyMap<T> {
+    [key: string]: T;
+}
+let keys: keyof MyMap<number>; // string
+let value: MyMap<number>['foo']; // number
+
+const myMap: MyMap<number> = {
+    age: 12,
+    money: 10000
+}
+
+let keyAge: keyof MyMap<number> = 'age';
+let valueAge: MyMap<number>['age'] = 12;
+
+type MyReadonly<T> = {
+    readonly [P in keyof T]: T[P];
+}
+type MyPartial<T> = {
+    [P in keyof T]?: T[P];
+}
+
+type Keys = 'option1' | 'option2';
+type Flags = { [K in Keys]: boolean };
