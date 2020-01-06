@@ -102,6 +102,7 @@ const t = new T();
 console.log('##T.prototype === Object.getPrototypeOf(t)##', T.prototype === Object.getPrototypeOf(t));
 console.log('##T.prototype.isPrototypeOf(t)##', T.prototype.isPrototypeOf(t));
 console.log('##T.prototype.constructor === T##', T.prototype.constructor === T);
+console.log('##t.constructor === T##', t.constructor === T);
 console.log('##Object.getOwnPropertyNames(T.prototype)##', Object.getOwnPropertyNames(T.prototype));
 console.log('##Object.getOwnPropertyNames(t)##', Object.getOwnPropertyNames(t));
 console.log('t.prop = ', t.prop = '1');
