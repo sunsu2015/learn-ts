@@ -28,7 +28,7 @@ class ConsoleLogger implements Loggable {
     }
 }
 const consoleLogger = new ConsoleLogger();
-Object.defineProperties(consoleLogger, {log: {enumerable: true, value: ConsoleLogger.prototype.log});
+Object.defineProperties(consoleLogger, {log: {enumerable: true, value: ConsoleLogger.prototype.log}});
 consoleLogger.log();
 var jim = extend(new Person("Jim"), consoleLogger);
 var n = jim.name;
