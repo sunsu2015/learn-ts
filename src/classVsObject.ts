@@ -55,7 +55,7 @@ console.log('myObj.prop = 2'), myObj.prop = 2;
 console.log('此时设置的是myObj的prop ');
 console.log('Object.getOwnPropertyNames(myObj) ', Object.getOwnPropertyNames(myObj));
 console.log('Object.entries(myObj) ', Object.entries(myObj)); // [['prop', 2]]
-console.log(`Object.defineProperty(myObj, 'prop', ...) `, Object.entries(myObj));
+console.log(`Object.defineProperty(myObj, 'prop', ...) `);
 Object.defineProperty(myObj, 'prop', {
     get: () => {
         console.log('prop get invoke');
