@@ -80,14 +80,14 @@ console.log('----------------------------------');
  * */ 
 
 class T {
-    private value: string;
+    private _prop: string;
     get prop() {
         console.log('getter');
-        return this.value;
+        return this._prop;
     }
     set prop(val: string) {
         console.log('setter');
-        this.value = val;
+        this._prop = val;
     }
     constructor() {
 
@@ -108,5 +108,4 @@ console.log('##Object.getOwnPropertyNames(t)##', Object.getOwnPropertyNames(t));
 console.log('t.prop = ', t.prop = '1');
 console.log('##Object.getOwnPropertyNames(T.prototype)##', Object.getOwnPropertyNames(T.prototype));
 console.log('##Object.getOwnPropertyNames(t)##', Object.getOwnPropertyNames(t));
-console.log('t.value = ', t.value);
 console.log('T.prototype.prop = ', T.prototype.prop);

@@ -20,4 +20,4 @@ console.log(MyClass1);
 
 const myClass1 = new MyClass1();
 
-myClass1.foo()
+myClass1.foo();

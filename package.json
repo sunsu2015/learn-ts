@@ -17,7 +17,8 @@
     "@types/ramda": "^0.26.3",
     "loadsh": "0.0.4",
     "log4js": "^4.0.2",
-    "ramda": "^0.26.1"
+    "ramda": "^0.26.1",
+    "reflect-metadata": "^0.1.13"
   },
   "keywords": []
 }
